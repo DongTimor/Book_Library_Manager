@@ -50,5 +50,11 @@ class Books_Controller extends Controller
         $book->save();
         return redirect()->route('admin.books.index');
     }
+    //-------------------------Adding many to many relationship----------------------------------
 
+    function category_of_book($id)
+    {
+        $book = Books_Model::find($id);
+        return response()->json($book->book_category);
+    }
 }
