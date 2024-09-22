@@ -1,14 +1,15 @@
 @extends('welcome')
 
 @section('content')
-<form action="{{ route('admin.books.update', $book->id) }}" method="post">
+{{-- {{ dd($book) }} --}}
+<form action="{{ route('admin.books.update', $book) }}" method="post">
     @csrf
     @method('PUT')
     <div class="container">
-        <h1>Edit Book {{ $book->id }}</h1>
+        <h1>Edit Book {{ $book->title }}</h1>
         <div style="display: flex; flex-direction: column; gap: 10px; background-color: #f0f0f0; padding: 10px;">
             <label for="title">Title</label>
-            <input type="text" name="title" value="{{ $book->title }}">
+            <input type="text" name="title" value="{{ $book->title}}">
         </div>
         <div style="display: flex; flex-direction: column; gap: 10px; background-color: #f0f0f0; padding: 10px;">
             <label for="author_id">Author</label>

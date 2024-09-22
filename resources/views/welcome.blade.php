@@ -17,7 +17,8 @@
     </head>
     <body class="antialiased">
         <div class="container mx-auto">
-            @yield('content') <!-- Đây là nơi nội dung sẽ được chèn vào -->
+            Wellcome
+            @yield('content')
         </div>
     </body>
 </html>

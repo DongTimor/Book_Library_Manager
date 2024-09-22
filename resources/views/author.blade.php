@@ -19,9 +19,9 @@
                 <td style="border: 1px solid black">{{ $author->id }}</td>
                 <td style="border: 1px solid black">{{ $author->name }}</td>
                 <div class="flex flex-col">
-                    @foreach ($author->books as $book)
+                    @foreach ($author->authorBooks as $book)
                         <td style="color: blue">{{ $book->title }}</td>
-                        <br>
+
                     @endforeach
                 </div>
             </tr>
