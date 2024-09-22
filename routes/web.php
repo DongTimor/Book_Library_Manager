@@ -19,6 +19,8 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.'], function () {
         Route::get('/edit/{book}', [BookController::class, 'edit'])->name('edit');
         Route::put('/update/{book}', [BookController::class, 'update'])->name('update');
         Route::get('/delete/{book}', [BookController::class, 'destroy'])->name('delete');
+        Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
+        Route::get('/search', [BookController::class, 'search'])->name('search');
 
     });
 

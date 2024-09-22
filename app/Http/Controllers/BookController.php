@@ -41,7 +41,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return response()->json($book);
     }
 
     /**
@@ -72,6 +72,15 @@ class BookController extends Controller
     {
         $book->delete();
         return redirect()->route('admin.books.index');
+    }
+
+    public function search(){
+        $params = request()->search;
+        $books = Book::where('title','like',"%$params%")
+                        ->orWhereHas('authorBook', function($query) use ($params) {
+                            $query->where('name', 'LIKE', "%$params%");})
+                        ->get();
+        return response()->json($books);
     }
 }
 

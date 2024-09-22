@@ -4,6 +4,12 @@
 <div>
     <div>
         <h1>Admin get all of Books</h1>
+        <form action={{ route('admin.books.search') }} >
+            @csrf
+            <input id='search' name='search' placeholder="Enter keywords..."/>
+            <button>search</button>
+        </form>
+
     </div>
     <table>
         <thead>
