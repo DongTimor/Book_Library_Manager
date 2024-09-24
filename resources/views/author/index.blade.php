@@ -6,7 +6,7 @@
             <h2 style="margin-bottom: 20px">Authors Manager</h2>
         </div>
         <x-adminlte-button id="btn-create-author" label='Create new author' class="btn btn-primary" />
-        <x-adminlte-datatable id="datatable" :heads="['STT', 'Name', 'Email', 'Information', 'Action']">
+        <x-adminlte-datatable id="datatable" :heads="['STT', 'Name', 'Email', 'Information', 'Action', 'Action']">
             @foreach ($authors as $author)
                 <tr>
                     <td>
