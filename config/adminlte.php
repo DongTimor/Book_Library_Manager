@@ -378,7 +378,7 @@ return [
         [
             'text' => 'books',
             'url' => 'admin/books',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-book',
         ],
         [
             'text' => 'authors',
@@ -388,7 +388,7 @@ return [
         [
             'text' => 'categories',
             'url' => 'admin/categories',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-bookmark',
         ],
         // ['header' => 'labels'],
         // [
