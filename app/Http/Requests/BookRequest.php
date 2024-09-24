@@ -21,9 +21,17 @@ class BookRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'title' => 'required|min:5|max:255|unique:books,title',
-            'author_id' => 'required|exists:authors,id'
-        ];
+        if(in_array($this->method(), ['PUT'])){
+            return [
+                'title' => 'required|min:5|max:255',
+                'author_id' => 'required|exists:authors,id'
+            ];
+        }else{
+            return [
+                'title' => 'required|min:5|max:255|unique:books,title',
+                'author_id' => 'required|exists:authors,id'
+            ];
+        }
+
     }
 }

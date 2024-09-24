@@ -14,7 +14,7 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
-        return view('author', compact('authors'));
+        return view('author.index', compact('authors'));
     }
 
     /**
@@ -22,7 +22,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-
+        return view('author.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        //
+        return view('author.show', compact('author'));
     }
 
     /**
@@ -47,15 +47,16 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        return view('author.edit',compact('author'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Author $author)
+    public function update(AuthorRequest $request, Author $author)
     {
-        //
+        $author->update($request->all());
+        return redirect() -> route('admin.authors.index');
     }
 
     /**
@@ -64,5 +65,6 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         $author->delete();
+        return back();
     }
 }

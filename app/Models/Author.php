@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Author extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+    protected $fillable = ['name','email','infor'];
     protected $guarded = ['id'];
 
     public function authorBooks(): HasMany

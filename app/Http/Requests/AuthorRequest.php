@@ -21,8 +21,15 @@ class AuthorRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name'=>'min:5|max:100|unique:authors,name'
-        ];
+        if(in_array($this->method(), ['PUT'])){
+            return [
+                'name'=>'min:5|max:100'
+            ];
+        }else{
+            return [
+                'name'=>'min:5|max:100|unique:authors,name'
+            ];
+        }
+
     }
 }

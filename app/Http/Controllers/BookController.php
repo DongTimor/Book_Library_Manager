@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookRequest;
 use App\Models\Author;
 use App\Models\Book;
-
+use App\Models\Category;
 
 class BookController extends Controller
 {
@@ -15,7 +15,9 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('index', compact('books'));
+        $categories = Category::all(); // Lấy tất cả các categories
+
+        return view('book.index', compact('books', 'categories'));
     }
 
     /**
@@ -23,8 +25,10 @@ class BookController extends Controller
      */
     public function create()
     {
-        $authors=Author::all();
-        return view('add-book', compact('authors'));
+        $authors = Author::all();
+        $categories = Category::all();
+
+        return view('book.create', compact('authors','categories'));
     }
 
     /**
@@ -32,8 +36,12 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
-        Book::create($request->all());
+        // dd($request->all());
+        $book = Book::create($request->all());
+        $book -> categoryBooks() ->attach($request->category_id);
         return redirect()->route('admin.books.index');
+
+
     }
 
     /**
@@ -41,7 +49,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return response()->json($book);
+        return view('book.show', compact('book'));
     }
 
     /**
@@ -50,8 +58,9 @@ class BookController extends Controller
     public function edit(Book $book)
     {
 
-        $authors=Author::all();
-        return view('edit-book', compact('book', 'authors'));
+        $authors = Author::all();
+        $categories = Category::all();
+        return view('book.edit', compact('book', 'authors', 'categories'));
     }
 
     /**
@@ -61,6 +70,9 @@ class BookController extends Controller
     {
 
         $book->update($request->all());
+        // $book -> categoryBooks() ->attach($request->category_id);
+        $book -> categoryBooks() ->sync($request->category_id);
+
         return redirect()->route('admin.books.index');
     }
 
@@ -71,7 +83,7 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-        return redirect()->route('admin.books.index');
+        return back();
     }
 
     public function search(){
