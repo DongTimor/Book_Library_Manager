@@ -4,14 +4,15 @@
     <div>
         <div>
             <h2>Book's Manager</h1>
-            <select id="categorySelect" class="form-control select2" style="margin-bottom: 20px;" multiple>
+            <label>Filter by categories</label>
+            <select id="categorySelect" class="form-control select2" style="margin-bottom: 20px " multiple>
                 <option value="">Select Category</option>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
 
-            <x-adminlte-button id="btn-create-book" label='Create new book' class="btn btn-primary" />
+            <x-adminlte-button id="btn-create-book" label='Create new book' class="btn btn-primary" style="margin-top: 20px " />
             <h4 class="collection-title" style="margin-top: 20px">Books</h4>
 
             <x-adminlte-datatable id="table1" :heads="['Name', 'Categories', 'Author', 'Date', 'Action', 'Action']">
