@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <div>
-            <h1>Category 's manager</h1>
+            <h2>Category 's manager</h1>
 
         </div>
         <x-adminlte-button id="btn-create-category" label='Create new category' class="btn btn-primary" />

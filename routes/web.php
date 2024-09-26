@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,15 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
         Route::put('/update/{category}', [CategoryController::class, 'update'])->name('update');
         Route::get('/delete/{category}', [CategoryController::class, 'destroy'])->name('delete');
     });
+
+
+
+});
+
+Route::group(['prefix' => 'test/', 'as' => 'test.'], function () {
+    Route::get('/', [TestController::class, 'index'])->name('index');
+    Route::get('/getBooks/{author}', [TestController::class, 'getBooksOfAuthor'])->name('getBooks');
+
 });
 
 Auth::routes();

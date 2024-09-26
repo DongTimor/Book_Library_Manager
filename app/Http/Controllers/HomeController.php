@@ -25,6 +25,7 @@ class HomeController extends Controller
     public function index(){
         return redirect()->route('admin');
     }
+    
     public function admin()
     {
         return view('home');
