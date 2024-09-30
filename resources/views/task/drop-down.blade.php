@@ -38,7 +38,7 @@
 
 @section('content')
     <x-adminlte-select id="author-select" name="author-select">
-        <option value="-1">--Select Author--</option>
+        <option value="-1">---Select Author---</option>
 
         @foreach ($authors as $author)
             <option value="{{ $author->id }}">{{ $author->name }}</option>
