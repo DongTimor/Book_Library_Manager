@@ -1,37 +1,68 @@
 <?php
 
-use App\Http\Controllers\Authors_Controller;
-use App\Http\Controllers\Books_Controller;
-use App\Http\Controllers\Categories_Controller;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin');
 });
 
 
-Route::group(['prefix' => 'admin/', 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+
+    Route::group(['prefix' => 'users/', 'as' => 'users.'], function () {
+        Route::get('/profile', [UserController::class, 'index'])->name('profile');
+        Route::get('/changePassword', [UserController::class, 'edit'])->name('changePassword');
+        Route::put('/update/{user}', [UserController::class, 'update'])->name('update');
+    });
+
     Route::group(['prefix' => 'books/', 'as' => 'books.'], function () {
-        Route::get('/', [Books_Controller::class, 'index'])->name('index');
-        Route::get('/create', [Books_Controller::class, 'create'])->name('create');
-        Route::post('/store', [Books_Controller::class, 'store'])->name('store');
-        Route::get('/edit/{id}', [Books_Controller::class, 'edit'])->name('edit');
-        Route::put('/update/{id}', [Books_Controller::class, 'update'])->name('update');
-        Route::get('/delete/{id}', [Books_Controller::class, 'delete'])->name('delete');
-    //-------------------------Adding many to many relationship----------------------------------
-        Route::get('get_categories_of_book/{id}', [Books_Controller::class, 'category_of_book'])->name('category_of_book');
+        Route::get('/', [BookController::class, 'index'])->name('index');
+        Route::get('/create', [BookController::class, 'create'])->name('create');
+        Route::post('/store', [BookController::class, 'store'])->name('store');
+        Route::get('/edit/{book}', [BookController::class, 'edit'])->name('edit');
+        Route::put('/update/{book}', [BookController::class, 'update'])->name('update');
+        Route::get('/delete/{book}', [BookController::class, 'destroy'])->name('delete');
+        Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
+        Route::get('/search', [BookController::class, 'search'])->name('search');
     });
 
     Route::group(['prefix' => 'authors/', 'as' => 'authors.'], function () {
-        Route::get('/', [Authors_Controller::class, 'index'])->name('index');
-        Route::post('/add/create', [Authors_Controller::class, 'store'])->name('store');
-        Route::get('/delete/{id}', [Authors_Controller::class, 'delete'])->name('delete');
-
+        Route::get('/', [AuthorController::class, 'index'])->name('index');
+        Route::get('/create', [AuthorController::class, 'create'])->name('create');
+        Route::post('/store', [AuthorController::class, 'store'])->name('store');
+        Route::get('/edit{author}', [AuthorController::class, 'edit'])->name('edit');
+        Route::put('/update/{author}', [AuthorController::class, 'update'])->name('update');
+        Route::get('/delete/{author}', [AuthorController::class, 'destroy'])->name('delete');
+        Route::get('/show/{author}', [AuthorController::class, 'show'])->name('show');
     });
-    //-------------------------Adding many to many relationship----------------------------------
 
     Route::group(['prefix' => 'categories/', 'as' => 'categories.'], function () {
-        Route::get('get_books_of_category/{id}', [Categories_Controller::class, 'books_of_category'])->name('books_of_category');
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
+        Route::get('/edit/{category}', [CategoryController::class, 'edit'])->name('edit');
+        Route::put('/update/{category}', [CategoryController::class, 'update'])->name('update');
+        Route::get('/delete/{category}', [CategoryController::class, 'destroy'])->name('delete');
     });
+
+
+
 });
+
+Route::group(['prefix' => 'test/', 'as' => 'test.'], function () {
+    Route::get('/', [TestController::class, 'index'])->name('index');
+    Route::get('/getBooks/{author}', [TestController::class, 'getBooksOfAuthor'])->name('getBooks');
+
+});
+
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
