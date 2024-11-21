@@ -4,17 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Authors_Model extends Model
+class Category extends Model
 {
     use HasFactory;
 
-    protected $table = 'authors';
     protected $fillable = ['name'];
     protected $guarded = ['id'];
 
-    public function books()
+    public function categoryBooks(): BelongsToMany
     {
-        return $this->hasMany(Books_Model::class, 'author_id', 'id');
+        return $this->belongsToMany( Book::class, 'book_category', 'category_id', 'book_id');
     }
 }

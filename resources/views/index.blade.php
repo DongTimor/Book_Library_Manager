@@ -1,6 +1,15 @@
+@extends('welcome')
+
+@section('content')
 <div>
     <div>
         <h1>Admin get all of Books</h1>
+        <form action={{ route('admin.books.search') }} >
+            @csrf
+            <input id='search' name='search' placeholder="Enter keywords..."/>
+            <button>search</button>
+        </form>
+
     </div>
     <table>
         <thead>
@@ -10,12 +19,12 @@
                 <th>Author</th>
             </tr>
         </thead>
-        <tbody> <!-- Thêm tbody để chứa các hàng -->
+        <tbody>
         @foreach ($books as $book)
             <tr>
                 <td>{{ $book->id }}</td>
                 <td>{{ $book->title }}</td>
-                <td>{{ $book->author->name }}</td> <!-- Sửa ở đây -->
+                <td>{{ $book->authorBook->name }}</td>
                 <td>
                     <a href="{{ route('admin.books.edit', $book->id) }}">Edit</a>
                     <a href="{{ route('admin.books.delete', $book->id) }}">Delete</a>
@@ -26,3 +35,4 @@
         </tbody>
     </table>
 </div>
+@endsection()

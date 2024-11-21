@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('books', function (Blueprint $table) {
-            $table->dropForeign(['author_id']);
-            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
+        Schema::create('books', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('author_id')->constrained('authors')->onDelete('cascade');
+            $table->string('title');
+            $table->timestamps();
         });
     }
 
